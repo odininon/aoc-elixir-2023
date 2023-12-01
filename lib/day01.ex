@@ -23,74 +23,51 @@ defmodule Day01 do
                     "nine" => "9"
                   })
 
-  def input() do
+  defp input() do
     Aoc.readFile("day01")
   end
 
-  def part1(input) do
+  defp part1(input) do
     input
     |> Enum.map(&value(&1, @part_one_words))
     |> Enum.reduce(0, fn i, acc -> acc + parseInt(i) end)
   end
 
-  def part2(input) do
+  defp part2(input) do
     input
     |> Enum.map(&value(&1, @part_two_words))
     |> Enum.reduce(0, fn i, acc -> acc + parseInt(i) end)
   end
 
-  def parse_input(input) do
+  defp parse_input(input) do
     input |> String.split("\n")
   end
 
-  def value(str, word_list) do
-    firstNumber(str, word_list) <> lastNumber(str, word_list)
+  defp value(word, word_list) do
+    first_number = Aoc.tails(word) |> first(word_list)
+    last_number = Aoc.inits(word) |> Enum.reverse() |> last(word_list)
+    first_number <> last_number
   end
 
-  def firstNumber(word, word_list) do
-    first(tails(word), word_list)
+  defp first(word, word_list) do
+    find_element(word, word_list, &String.starts_with?/2)
   end
 
-  def first([word | words], word_list) do
-    case Enum.filter(Map.keys(word_list), fn a -> String.starts_with?(word, a) end) do
-      [] -> first(words, word_list)
+  defp last(word, word_list) do
+    find_element(word, word_list, &String.ends_with?/2)
+  end
+
+  defp find_element([word | words], word_list, fun) do
+    case Enum.filter(Map.keys(word_list), fn a -> fun.(word, a) end) do
+      [] -> find_element(words, word_list, fun)
       [v | _] -> Map.get(word_list, v)
     end
-  end
-
-  def last([word | words], word_list) do
-    case Enum.filter(Map.keys(word_list), fn a -> String.ends_with?(word, a) end) do
-      [] -> last(words, word_list)
-      [v | _] -> Map.get(word_list, v)
-    end
-  end
-
-  def lastNumber(word, word_list) do
-    last(inits(word) |> Enum.reverse(), word_list)
   end
 
   def parseInt(str) do
     case Integer.parse(str) do
       {i, _} -> i
     end
-  end
-
-  def inits(str) do
-    tails(String.graphemes(str) |> Enum.reverse(), [])
-    |> Enum.reverse()
-    |> Enum.map(fn x -> String.reverse(x) end)
-  end
-
-  def tails(str) do
-    tails(String.graphemes(str), [])
-  end
-
-  def tails([], ls) do
-    Enum.reverse(ls)
-  end
-
-  def tails(str, ls) do
-    tails(tl(str), [str |> Enum.join() | ls])
   end
 
   def part1_verify, do: input() |> parse_input() |> part1()
