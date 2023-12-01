@@ -18,6 +18,12 @@ defmodule Aoc do
     |> Enum.map(fn x -> String.reverse(x) end)
   end
 
+  def parseInt(str) do
+    case Integer.parse(str) do
+      {i, _} -> i
+    end
+  end
+
   defp tails([], ls) do
     Enum.reverse(ls)
   end

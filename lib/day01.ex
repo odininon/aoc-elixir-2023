@@ -27,46 +27,42 @@ defmodule Day01 do
     Aoc.readFile("day01")
   end
 
-  defp part1(input) do
-    input
-    |> Enum.map(&value(&1, @part_one_words))
-    |> Enum.reduce(0, fn i, acc -> acc + parseInt(i) end)
-  end
-
-  defp part2(input) do
-    input
-    |> Enum.map(&value(&1, @part_two_words))
-    |> Enum.reduce(0, fn i, acc -> acc + parseInt(i) end)
-  end
-
   defp parse_input(input) do
     input |> String.split("\n")
+  end
+
+  defp part1(inputs) do
+    solve(inputs, @part_one_words)
+  end
+
+  defp part2(inputs) do
+    solve(inputs, @part_two_words)
+  end
+
+  defp solve(inputs, word_list) do
+    inputs
+    |> Enum.map(&value(&1, word_list))
+    |> Enum.sum()
   end
 
   defp value(word, word_list) do
     first_number = Aoc.tails(word) |> first(word_list)
     last_number = Aoc.inits(word) |> Enum.reverse() |> last(word_list)
-    first_number <> last_number
+    Aoc.parseInt(first_number <> last_number)
   end
 
   defp first(word, word_list) do
-    find_element(word, word_list, &String.starts_with?/2)
+    find_first_element(word, word_list, &String.starts_with?/2)
   end
 
   defp last(word, word_list) do
-    find_element(word, word_list, &String.ends_with?/2)
+    find_first_element(word, word_list, &String.ends_with?/2)
   end
 
-  defp find_element([word | words], word_list, fun) do
-    case Enum.filter(Map.keys(word_list), fn a -> fun.(word, a) end) do
-      [] -> find_element(words, word_list, fun)
+  defp find_first_element([word | words], word_list, fun) do
+    case Enum.filter(Map.keys(word_list), &fun.(word, &1)) do
+      [] -> find_first_element(words, word_list, fun)
       [v | _] -> Map.get(word_list, v)
-    end
-  end
-
-  def parseInt(str) do
-    case Integer.parse(str) do
-      {i, _} -> i
     end
   end
 
