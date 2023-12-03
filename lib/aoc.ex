@@ -18,10 +18,10 @@ defmodule Aoc do
     |> Enum.map(fn x -> String.reverse(x) end)
   end
 
-  def parseInt(str) do
-    case Integer.parse(str) do
-      {i, _} -> i
-    end
+  def uniq([]), do: []
+
+  def uniq([head | tail]) do
+    [head | for(x <- uniq(tail), x != head, do: x)]
   end
 
   defp tails([], ls) do

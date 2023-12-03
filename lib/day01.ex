@@ -48,7 +48,7 @@ defmodule Day01 do
   defp value(word, word_list) do
     first_number = Aoc.tails(word) |> first(word_list)
     last_number = Aoc.inits(word) |> Enum.reverse() |> last(word_list)
-    Aoc.parseInt(first_number <> last_number)
+    String.to_integer(first_number <> last_number)
   end
 
   defp first(word, word_list) do
