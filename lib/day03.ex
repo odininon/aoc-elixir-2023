@@ -73,7 +73,7 @@ defmodule Day03 do
 
       if length(surrounding_parts) == 2 do
         find_valid_gears(grid, next_col(grid, grid_point), [
-          Enum.reduce(surrounding_parts, 1, fn e, a -> a * e end) | gear_ratios
+          Enum.product(surrounding_parts) | gear_ratios
         ])
       else
         find_valid_gears(grid, next_col(grid, grid_point), gear_ratios)

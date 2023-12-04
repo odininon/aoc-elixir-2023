@@ -16,7 +16,7 @@ defmodule Day02 do
       Enum.map(["red", "green", "blue"], fn color ->
         Enum.map(Map.get(game, "pulls"), &Map.get(&1, color, 0)) |> Enum.max()
       end)
-      |> Enum.reduce(1, fn e, a -> a * e end)
+      |> Enum.product()
     end)
     |> Enum.sum()
   end
