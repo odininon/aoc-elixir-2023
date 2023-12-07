@@ -8,7 +8,7 @@ defmodule Day03 do
   def parse_input(input) do
     input
     |> String.split("\n")
-    |> Enum.map(fn line -> String.split(line, "") |> Enum.filter(fn col -> col != "" end) end)
+    |> Enum.map(fn line -> String.split(line, "", trim: true) end)
   end
 
   def part1(input) do

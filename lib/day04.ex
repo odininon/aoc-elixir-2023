@@ -89,8 +89,7 @@ defmodule Day04 do
 
   defp format_number_string_to_list(number_string) do
     number_string
-    |> String.split(" ")
-    |> Enum.filter(fn str -> str != "" end)
+    |> String.split(" ", trim: true)
     |> Enum.map(fn str -> str end)
   end
 

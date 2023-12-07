@@ -13,8 +13,7 @@ defmodule Day06 do
   def parse_numbers(line) do
     line
     |> String.trim()
-    |> String.split(" ")
-    |> Enum.filter(&(&1 != ""))
+    |> String.split(" ", trim: true)
     |> Enum.map(&String.to_integer/1)
   end
 

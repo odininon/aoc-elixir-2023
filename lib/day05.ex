@@ -25,30 +25,6 @@ defmodule Day05 do
     Enum.min(mappings)
   end
 
-  # def part2(input) do
-  # parts = input |> String.split("\n\n")
-
-  # seeds =
-  #   parts
-  #   |> hd
-  #   |> String.split(":")
-  #   |> tl()
-  #   |> Enum.flat_map(fn str -> str |> String.trim() |> String.split(" ") end)
-  #   |> Enum.map(fn str -> String.to_integer(str) end)
-  #   |> Enum.chunk_every(2)
-  #   |> Enum.map(fn pair -> get_range_from_pair(pair) end)
-
-  # mappings =
-  #   parts
-  #   |> tl()
-  #   |> Enum.reduce(seeds, fn elem, acc ->
-  #     map = parse_mapping_string(elem, acc)
-  #     Enum.map(acc, fn seed -> location(seed, map) end)
-  #   end)
-
-  # Enum.min(mappings)
-  # end
-
   def parse_input(input) do
     input
   end
@@ -109,5 +85,4 @@ defmodule Day05 do
   end
 
   def part1_verify, do: input() |> parse_input() |> part1()
-  # def part2_verify, do: input() |> parse_input() |> part2()
 end
