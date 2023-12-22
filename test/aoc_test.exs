@@ -3,6 +3,17 @@ defmodule AocTest do
   doctest Aoc
 
   test "tails" do
-    assert(Aoc.tails("two1nine") == ["two1nine", "wo1nine", "o1nine", "1nine", "nine", "ine", "ne", "e"])
+    assert(
+      Aoc.tails("two1nine") == [
+        "two1nine",
+        "wo1nine",
+        "o1nine",
+        "1nine",
+        "nine",
+        "ine",
+        "ne",
+        "e"
+      ]
+    )
   end
 end
